@@ -109,6 +109,7 @@ void loop() {
     }else if (manual ==1){
 
         manualControl();
+        armManual();
 
 
     } 
@@ -309,5 +310,13 @@ void manualControl(){
         }
 
 
+
 }
 
+void armManual(){
+              
+              servo1.write(base);
+              servo2.write(link);
+              gripper.write(grabber);
+
+}
