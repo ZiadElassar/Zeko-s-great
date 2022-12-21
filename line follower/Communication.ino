@@ -33,9 +33,11 @@ void handlePost() {
   deserializeJson(jsonDocument, body);
   
   // Get position and arm positions 
-  // base_angle = jsonDocument["base_angle"];
-  // link_angle = jsonDocument["link_angle"];
-  // grabber_angle = jsonDocument["grabber_angle"];
+  manual = jsonDocument["manual"];
+  mode = jsonDocument["link_angle"];
+  base = jsonDocument["base_angle"];
+  link = jsonDocument["link_angle"];
+  grabber = jsonDocument["grabber_angle"];
   x_pos = jsonDocument["x_pos"];
   y_pos = jsonDocument["y_pos"];
  
