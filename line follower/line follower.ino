@@ -43,6 +43,16 @@ int counter;
 int arm;
 
 
+// MENAZAA Updates
+
+int manual = 0; 
+int x_pos = 0;
+int y_pos = 0;
+int base = 0; 
+int link = 0;
+int grabber = 0;
+
+
 
 
 void setup() {
@@ -65,28 +75,43 @@ void setup() {
   gripper.attach(14);
   servo1.attach(13); 
   servo2.attach(12);
+
+   // Communication Setup
+   connectToWiFi();
+   setup_routing(); 
   
 
 }
 
 void loop() {
-if(arm==0){
-armreset();
-}
 
-  if (mode ==1){
+  // Communication loop
+ server.handleClient();
 
 
-line_follower();
+      if(arm==0){
+        armreset();
+      }
+    if(manual ==0){
+        if (mode ==0){
 
 
-  }
-  else if(mode==2) 
-  
-  {
-    object_avoiding();
-    
-    }
+      line_follower();
+
+
+        }
+        else if(mode==1) 
+        
+        {
+          object_avoiding();
+          
+          }
+    }else if (manual ==1){
+
+        manualControl();
+
+
+    } 
 }
 void line_follower() {
   int centerSensor = sensorTwo();
@@ -259,3 +284,30 @@ void Armend(){
   arm=0;
 
 }
+
+
+
+
+// MENAZAA updates
+
+void manualControl(){
+
+      if((x_pos <15 || x_pos>-15 ) && (y_pos>15 || y_pos<-15) ){
+          if(y_pos<-15){
+            forward();
+          }else{
+            Back();
+          }
+        }else if(y_pos <15 || y_pos>-15 ) && (x_pos>15 || x_pos<-15)  ){
+          if(y_pos>15){
+            right();
+          }else{
+            left();
+          }
+        }else{
+          Stop();
+        }
+
+
+}
+
