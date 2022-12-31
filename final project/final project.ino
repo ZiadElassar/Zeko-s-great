@@ -6,7 +6,8 @@
 
 //#include <Servo.h>
 
-
+int pos1p=100;
+int pos2p=120;
 #include <L298N.h>
 #include <analogWrite.h>
 #include <WiFi.h>
@@ -378,7 +379,7 @@ void manualControl(){
             Back();
           }
         }else if((y_pos <15 || y_pos>-15 ) && (x_pos>15 || x_pos<-15)  ){
-          if(y_pos>15){
+          if(x_pos>15){
             right();
           }else{
             left();
@@ -392,9 +393,40 @@ void manualControl(){
 }
 
 void armManual(){
+    if (pos1p > base) {
+        for ( int j = pos1p; j >= base; j--) {  
+          servo1.write(j);
+          delay(20);   
+        }
+      }
+  
+      else if (pos1p < base) {
+        for ( int j = pos1p; j <= base; j++) { 
+          servo1.write(j);
+          delay(20);
+        }
+      }
+      pos1p = base;  
+    
               
-              servo1.write(base);
-              servo2.write(link_servo);
-              gripper.write(grabber);
+    if (pos2p > link_servo) {
+        for ( int j2 = pos2p; j2 >= link_servo; j2--) {   
+          servo2.write(j2);
+          delay(20);    
+        }
+      }
+
+      if (pos2p < link_servo) {
+        for ( int j2 = pos2p; j2 <= link_servo; j2++) {   
+          servo2.write(j2);
+          delay(20);
+        }
+      }
+      pos2p = link_servo;   
+
+      gripper.write(grabber); 
+         
+    
+
 
 }
